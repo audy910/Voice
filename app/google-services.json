@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "816643011651",
+    "firebase_url": "https://voice-5d747.firebaseio.com",
+    "project_id": "voice-5d747",
+    "storage_bucket": "voice-5d747.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816643011651:android:5f4e04a6a4696b906850f6",
+        "android_client_info": {
+          "package_name": "com.example.voice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816643011651-vcoqikc8r2tt8i77t76uttb6sllg0pfp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsp2JKCVOW0pDr_csIO-edD85jNaaLpys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816643011651-vcoqikc8r2tt8i77t76uttb6sllg0pfp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
