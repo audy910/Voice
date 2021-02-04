@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
         public void setFullname(String fullname)
         {
-            TextView username = mView.findViewById(R.id.post_user_name);
+            TextView username = mView.findViewById(R.id.post_username);
             username.setText(fullname);
         }
         public void setProfileimage(Context ctx, String profileimage)
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
         }
         public void setDescription(String description)
         {
-            TextView postDescription = mView.findViewById(R.id.saved_post_description);
+            TextView postDescription = mView.findViewById(R.id.post_description);
             postDescription.setText(description);
         }
 //        public void setPostimage(Context ctx1, String postimage)
@@ -285,11 +285,9 @@ public class MainActivity extends AppCompatActivity {
 //        }
         public void setTitle(String title)
     {
-        TextView postTitle = mView.findViewById(R.id.saved_post_title);
+        TextView postTitle = mView.findViewById(R.id.post_topic);
         postTitle.setText(title);
     }
-
-
     }
 
     private void sendUserToPostActivity() {

@@ -10,22 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -47,8 +44,8 @@ public class GroupsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
 
-        topic = findViewById(R.id.saved_post_title);
-        description = findViewById(R.id.saved_post_description);
+//        topic = findViewById(R.id.saved_topic);
+//        description = findViewById(R.id.saved_solution);
         mAuth = FirebaseAuth.getInstance();
         currentUserId  = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         savedPostsRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("Saved");
@@ -69,55 +66,41 @@ public class GroupsActivity extends AppCompatActivity {
 
         displaySavedGroups();
     }
+    private void displaySavedGroups () {
 
-    //creating display of saved groups with recyclerview
-    private void displaySavedGroups() {
-        savedPostsRef.addValueEventListener(new ValueEventListener() {
+        FirebaseRecyclerOptions<savedGroups> options = new FirebaseRecyclerOptions.Builder<savedGroups>()
+                .setQuery(savedPostsRef, savedGroups.class) //savedPostRef accessing posts saved by user, declared in Create
+                .build();
+        FirebaseRecyclerAdapter<savedGroups, SavedGroupsHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<savedGroups, GroupsActivity.SavedGroupsHolder>
+                (options) {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild("Title"))
-                {
-                    final String description = snapshot.child("Description").getValue().toString();
-                    final String title = snapshot.child("Title").getValue().toString();
-                    FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>()
-                            .setQuery(savedPostsRef, Posts.class)
-                            .build();
-                    FirebaseRecyclerAdapter<Posts, SavedGroupsHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Posts, SavedGroupsHolder>(options) {
-                        @Override
-                        protected void onBindViewHolder(@NonNull SavedGroupsHolder holder, int position, @NonNull Posts model) {
-                            //use the SavedGroupsHolder variables set up the add parts of the
-                            holder.setDescription(description);
-                            holder.setTitle(title);
-                        }
+            protected void onBindViewHolder(@NonNull SavedGroupsHolder holder, int position, @NonNull final savedGroups model) {
+                final String PostKey = getRef(position).getKey();
 
-                        @NonNull
-                        @Override
-                        public SavedGroupsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_groups, parent, false);
-                            SavedGroupsHolder viewHolder = new SavedGroupsHolder(view);
+//                holder.setFullname(model.getFullname());
+//                holder.setTime(model.getTime());
+//                holder.setDate(model.getDate());
+                Log.i("info","model should now have".concat( model.getDescription()));
+                holder.setDescription(model.getDescription());
+                holder.setTitle(model.getTitle()); //log.i
+            }
+            @NonNull
+            @Override
+            public SavedGroupsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_groups_layout, parent, false);
+                SavedGroupsHolder viewHolder = new SavedGroupsHolder(view);
 
 
-                            return viewHolder;
-                        }
-                    };
-                    savedGroupsList.setAdapter(firebaseRecyclerAdapter);
-                    firebaseRecyclerAdapter.startListening();
-                }
-                else
-                {
-                    Toast.makeText(GroupsActivity.this, "Please save a group first", Toast.LENGTH_SHORT).show();
-                }
+                return viewHolder;
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        };
 
-            }
-        });
-
-
+        savedGroupsList.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.startListening();
 
     }
+
 
     public class SavedGroupsHolder extends RecyclerView.ViewHolder
     {
@@ -127,21 +110,21 @@ public class GroupsActivity extends AppCompatActivity {
         public SavedGroupsHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
-            goToGroupButton = findViewById(R.id.goToGroupButton);
-            removeGroupButton = findViewById(R.id.removeGroupButton);
+            goToGroupButton = findViewById(R.id.go_to_group);
+            //removeGroupButton = findViewById(R.id.removeGroupButton);
             //define upper variables
         }
         public void setDescription(String description)
         {
-            TextView postDescription = mView.findViewById(R.id.saved_post_description);
+            TextView postDescription = mView.findViewById(R.id.saved_solution);
             postDescription.setText(description);
         }
         public void setTitle(String title)
         {
-            TextView postTitle = mView.findViewById(R.id.saved_post_title);
+            TextView postTitle = mView.findViewById(R.id.saved_topic);
             postTitle.setText(title);
         }
-        //going to set the title and the description using the Posts class
+        //going to set the title and the description using the savedGroupds class
         //create a Ref to access the saved posts with the other variables - use that to access what goes into the title
         //^ may go in the BinderViewHolder
     }
