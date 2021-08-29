@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -172,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull final Posts model) {
                     final String PostKey = getRef(position).getKey();
+                    Log.i("info","model should now have".concat( model.getDescription()));
 
                     holder.setFullname(model.getFullname());
                     holder.setTime(model.getTime());

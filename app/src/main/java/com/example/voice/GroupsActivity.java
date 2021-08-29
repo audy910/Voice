@@ -51,13 +51,13 @@ public class GroupsActivity extends AppCompatActivity {
         savedPostsRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("Saved");
 
 
-        mToolbar = findViewById(R.id.groups_toolbar);
+        mToolbar = findViewById(R.id.group_toolbar);
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Groups");
 
-        savedGroupsList = findViewById(R.id.saved_group_list);
+        savedGroupsList = findViewById(R.id.saved_groups_list);
         savedGroupsList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);

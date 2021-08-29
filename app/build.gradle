@@ -29,13 +29,14 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0' //androidx
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    implementation 'com.google.firebase:firebase-auth:19.3.2'   //firebase authentication
-    implementation 'com.google.firebase:firebase-database:19.3.1'      //firebase database
-    implementation 'com.google.firebase:firebase-storage:19.1.1'    //firebase storage
+    implementation 'com.google.firebase:firebase-auth:21.0.1'   //firebase authentication
+    implementation 'com.google.firebase:firebase-database:20.0.1'      //firebase database
+    implementation 'com.google.firebase:firebase-storage:20.0.0'    //firebase storage
     implementation 'de.hdodenhof:circleimageview:3.1.0'     //image view
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0' //image cropper
     implementation 'androidx.recyclerview:recyclerview:1.1.0'// recycler view
-    implementation 'com.firebaseui:firebase-ui-database:6.3.0' //firebase UI database
+    implementation 'com.firebaseui:firebase-ui-database:6.3.0'
+    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'//firebase UI database
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
